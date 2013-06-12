@@ -1,10 +1,13 @@
-require "active_record"
+require "activerecord-jdbc-adapter"
+#require "activerecord-jdbcmysql-adapter"
+#require 'jdbc-mysql'
 
 ActiveRecord::Base.establish_connection(
-    :adapter => "mysql2",
+    :adapter => "jdbcmysql",
+    :driver => "com.mysql.jdbc.Driver",
     :host => "localhost",
     :username => "root",
-    :database => "xdata_kiva",
+    :url  => "jdbc:mysql://localhost:3306/xdata_kiva",
     :encoding => "utf8"
 )
 
@@ -22,12 +25,14 @@ end
 # loan stuff
 
 class Loan < ActiveRecord::Base
+  has_many :loan_descriptions
 end
 
 class LoanBorrower < ActiveRecord::Base
 end
 
 class LoanDescription < ActiveRecord::Base
+  belongs_to :loan
 end
 
 class LoanLocalPayment < ActiveRecord::Base
