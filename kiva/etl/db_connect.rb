@@ -41,3 +41,6 @@ end
 
 class LoanLender < ActiveRecord::Base
 end
+
+class LenderTeam < ActiveRecord::Base
+end
