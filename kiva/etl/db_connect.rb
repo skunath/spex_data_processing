@@ -44,3 +44,6 @@ end
 
 class LenderTeam < ActiveRecord::Base
 end
+
+class JournalComment < ActiveRecord::Base
+end

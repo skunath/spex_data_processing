@@ -39,7 +39,7 @@ do_stuff <- function(req, res) {
   #dev.off()
   #ggsave(plot=t, file.path(getwd(), "tester.png"))
   
-  ggsave(plot=t, paste(PIC.DIR, "/testing.png", sep = ""), width=12, height=8)
+  ggsave(plot=t, paste(PIC.DIR, "/loans_", partner_id, ".png", sep = ""), width=12, height=8)
   
 
 
@@ -50,11 +50,12 @@ LoansByPartner.app <- function(env){
   req <- Rook::Request$new(env)
   res <- Rook::Response$new()
   
+  partner_id <- req$GET()$partner_id
   
   do_stuff(req, res)
   res$write(paste("<img src='", 
                   R.server$full_url("pic"), 
-                  "/testing.png'", 
+                  "/loans_", partner_id, ".png'", 
                   "width='650 px' height='650 px' />", sep = ""))
   res$finish()
   
