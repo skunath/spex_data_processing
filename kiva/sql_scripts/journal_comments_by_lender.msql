@@ -1,0 +1,13 @@
+set @rank_counter := 0;
+set @country:= null;
+
+select *, count(*) as counterer, min(rank) as ranker from (
+select kiva_id, counter, @rank_counter := if(@sector = sector, @rank_counter + 1, @rank_counter := 1) as rank, 
+@sector := sector as sector from (
+SELECT a.kiva_id, sector, count(*) as counter FROM loans a
+left outer join journal_comments b on b.kiva_loan_id = a.kiva_id
+where b.kiva_loan_id is not null
+group by a.kiva_id
+order by sector, counter desc
+) f ) g
+group by counter
