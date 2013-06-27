@@ -1,0 +1,7 @@
+select country, datediffer, avg(funded_amount) as avg_funded, count(*) as counter from (
+            select country, funded_amount, posted_date, funded_date,
+            datediff(funded_date, posted_date) as datediffer 
+            from loans a
+            where datediff(funded_date, posted_date) >= 0
+            ) z
+group by country, datediffer
